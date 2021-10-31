@@ -12,17 +12,27 @@ function Square(props) {
 
 
 function Board() {
-
   const [squares, setSquares] = useState(Array(9).fill(null))
   const [xIsNext, setXIsNext] = useState(true)
   const player = () => xIsNext ? 'X' : 'O'
-  const status = 'Next player: ' + player();
   const handleClick = (i) => {
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
     const tempSquares = [...squares]
     tempSquares[i] = player()
     setSquares(tempSquares)
     setXIsNext(!xIsNext)
   }
+
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = 'Winner: ' + winner;
+  } else {
+    status = 'Next player: ' + player();
+  }
+
   const renderSquare = (i) => {
     return(
       <Square
@@ -53,6 +63,25 @@ function Board() {
   )
 }
 
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
 function Game() {
   return (
     <div className="game">
