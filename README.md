@@ -1,3 +1,6 @@
+[チュートリアル：React の導入](https://ja.reactjs.org/tutorial/tutorial.html)を
+関数コンポーネントで雑に記述したもの。
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
