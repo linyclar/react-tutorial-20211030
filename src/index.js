@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-function Square() {
+function Square(props) {
   return (
-    <button className="square">
-      {/* TODO */}
+    <button className="square" onClick={props.onClick}>
+      {props.value}
     </button>
-  );
+  )
 }
 
-function renderSquare(i) {
-  return <Square />;
-}
 
 function Board() {
-  const status = 'Next player: X';
+  const status = 'Next player: X'
+  const [squares, setSquares] = useState(Array(9).fill(null))
+  const handleClick = (i) => {
+    const tempSquares = [...squares]
+    tempSquares[i] = 'X'
+    setSquares(tempSquares)
+  }
+  const renderSquare = (i) => {
+    return(
+      <Square
+         value={squares[i]}
+         onClick={() => handleClick(i)} />
+    )
+  }
 
   return (
     <div>
@@ -36,7 +46,7 @@ function Board() {
         {renderSquare(8)}
       </div>
     </div>
-  );
+  )
 }
 
 function Game() {
